@@ -1,10 +1,10 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ChevronLeft, ChevronRight, Users, Baby, GraduationCap, Gamepad2, Trophy } from "lucide-react"
+import { ChevronLeft, ChevronRight, Users, Baby, GraduationCap, Gamepad2, Trophy, Calendar, Clock, MapPin, Star } from "lucide-react"
 
 interface Event {
   id: string
@@ -91,17 +91,44 @@ export function CalendarSystem() {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedAudience, setSelectedAudience] = useState<"Kids" | "Adults">("Kids")
   const [selectedCategories, setSelectedCategories] = useState<string[]>(["Educational", "Games", "Sports"])
+  const [hoveredEvent, setHoveredEvent] = useState<string | null>(null)
+  const [animationKey, setAnimationKey] = useState(0)
 
   const categories = [
-    { name: "Educational", icon: GraduationCap, color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
-    { name: "Games", icon: Gamepad2, color: "bg-purple-500/20 text-purple-400 border-purple-500/30" },
-    { name: "Sports", icon: Trophy, color: "bg-green-500/20 text-green-400 border-green-500/30" },
+    {
+      name: "Educational",
+      icon: GraduationCap,
+      color: "from-[#FFD43B] to-[#FFC300]",
+      borderColor: "border-[#FFD43B]/30",
+      textColor: "text-[#FFD43B]",
+      bgColor: "bg-[#FFD43B]/10"
+    },
+    {
+      name: "Games",
+      icon: Gamepad2,
+      color: "from-[#00BFFF] to-[#18E0FF]",
+      borderColor: "border-[#00BFFF]/30",
+      textColor: "text-[#00BFFF]",
+      bgColor: "bg-[#00BFFF]/10"
+    },
+    {
+      name: "Sports",
+      icon: Trophy,
+      color: "from-[#FFD43B] via-[#00BFFF] to-[#18E0FF]",
+      borderColor: "border-[#00BFFF]/30",
+      textColor: "text-[#18E0FF]",
+      bgColor: "bg-gradient-to-r from-[#FFD43B]/10 to-[#00BFFF]/10"
+    },
   ]
 
   const filteredEvents = useMemo(() => {
     return sampleEvents.filter(
       (event) => event.audience === selectedAudience && selectedCategories.includes(event.category),
     )
+  }, [selectedAudience, selectedCategories])
+
+  useEffect(() => {
+    setAnimationKey(prev => prev + 1)
   }, [selectedAudience, selectedCategories])
 
   const toggleCategory = (category: string) => {
@@ -156,268 +183,386 @@ export function CalendarSystem() {
   }
 
   const monthNames = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December",
   ]
 
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
   return (
-    <section id="calendar" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-gradient mb-4">Interactive Calendar</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Discover events tailored for different age groups and interests
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Controls Panel */}
-          <div className="lg:col-span-1 space-y-6">
-            {/* Audience Toggle */}
-            <Card className="glassmorphism border-primary/20">
-              <CardHeader>
-                <CardTitle className="text-foreground flex items-center gap-2">
-                  <Users className="w-5 h-5" />
-                  Audience
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex gap-2">
-                  <Button
-                    variant={selectedAudience === "Kids" ? "default" : "outline"}
-                    onClick={() => setSelectedAudience("Kids")}
-                    className={`flex-1 ${
-                      selectedAudience === "Kids"
-                        ? "bg-accent hover:bg-accent/90 text-accent-foreground"
-                        : "glassmorphism border-primary/30 hover:border-primary text-foreground"
-                    }`}
-                  >
-                    <Baby className="w-4 h-4 mr-2" />
-                    Kids
-                  </Button>
-                  <Button
-                    variant={selectedAudience === "Adults" ? "default" : "outline"}
-                    onClick={() => setSelectedAudience("Adults")}
-                    className={`flex-1 ${
-                      selectedAudience === "Adults"
-                        ? "bg-accent hover:bg-accent/90 text-accent-foreground"
-                        : "glassmorphism border-primary/30 hover:border-primary text-foreground"
-                    }`}
-                  >
-                    <Users className="w-4 h-4 mr-2" />
-                    Adults
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Category Filters */}
-            <Card className="glassmorphism border-primary/20">
-              <CardHeader>
-                <CardTitle className="text-foreground">Categories</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {categories.map((category) => {
-                    const Icon = category.icon
-                    const isSelected = selectedCategories.includes(category.name)
-                    return (
-                      <Button
-                        key={category.name}
-                        variant="outline"
-                        onClick={() => toggleCategory(category.name)}
-                        className={`w-full justify-start transition-all duration-200 ${
-                          isSelected
-                            ? `${category.color} border-2`
-                            : "glassmorphism border-muted hover:border-primary/50 text-muted-foreground hover:text-foreground"
-                        }`}
-                      >
-                        <Icon className="w-4 h-4 mr-2" />
-                        {category.name}
-                      </Button>
-                    )
-                  })}
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Event Stats */}
-            <Card className="glassmorphism border-primary/20">
-              <CardHeader>
-                <CardTitle className="text-foreground">This Month</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Total Events</span>
-                    <span className="text-foreground font-semibold">{filteredEvents.length}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Available Spots</span>
-                    <span className="text-accent font-semibold">
-                      {filteredEvents.reduce((sum, event) => sum + (event.maxSpots - event.spots), 0)}
-                    </span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Calendar Grid */}
-          <div className="lg:col-span-2">
-            <Card className="glassmorphism border-primary/20">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-foreground text-2xl">
-                    {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
-                  </CardTitle>
-                  <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => navigateMonth("prev")}
-                      className="glassmorphism border-primary/30 hover:border-primary text-foreground"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => navigateMonth("next")}
-                      className="glassmorphism border-primary/30 hover:border-primary text-foreground"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </Button>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                {/* Day Headers */}
-                <div className="grid grid-cols-7 gap-1 mb-2">
-                  {dayNames.map((day) => (
-                    <div key={day} className="p-2 text-center text-sm font-medium text-muted-foreground">
-                      {day}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Calendar Days */}
-                <div className="grid grid-cols-7 gap-1">
-                  {getDaysInMonth(currentDate).map((date, index) => {
-                    const dayEvents = getEventsForDate(date)
-                    const isToday =
-                      date &&
-                      date.getDate() === new Date().getDate() &&
-                      date.getMonth() === new Date().getMonth() &&
-                      date.getFullYear() === new Date().getFullYear()
-
-                    return (
-                      <div
-                        key={index}
-                        className={`min-h-[80px] p-1 border border-border/50 rounded-lg transition-all duration-200 hover:border-primary/50 hover:scale-105 ${
-                          isToday ? "bg-primary/10 border-primary/50" : "hover:bg-muted/20"
-                        } ${!date ? "opacity-0" : ""}`}
-                      >
-                        {date && (
-                          <>
-                            <div className={`text-sm font-medium mb-1 ${isToday ? "text-primary" : "text-foreground"}`}>
-                              {date.getDate()}
-                            </div>
-                            <div className="space-y-1">
-                              {dayEvents.slice(0, 2).map((event) => {
-                                const categoryInfo = categories.find((c) => c.name === event.category)
-                                return (
-                                  <Badge
-                                    key={event.id}
-                                    variant="outline"
-                                    className={`text-xs px-1 py-0 h-5 ${categoryInfo?.color} cursor-pointer hover:scale-105 transition-transform`}
-                                    title={`${event.title} - ${event.time}`}
-                                  >
-                                    {event.title.length > 8 ? `${event.title.slice(0, 8)}...` : event.title}
-                                  </Badge>
-                                )
-                              })}
-                              {dayEvents.length > 2 && (
-                                <Badge
-                                  variant="outline"
-                                  className="text-xs px-1 py-0 h-5 bg-muted/50 text-muted-foreground"
-                                >
-                                  +{dayEvents.length - 2} more
-                                </Badge>
-                              )}
-                            </div>
-                          </>
-                        )}
-                      </div>
-                    )
-                  })}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-
-        {/* Upcoming Events List */}
-        <div className="mt-12">
-          <h3 className="text-2xl font-bold text-foreground mb-6">Upcoming {selectedAudience} Events</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredEvents.slice(0, 6).map((event) => {
-              const categoryInfo = categories.find((c) => c.name === event.category)
-              const Icon = categoryInfo?.icon || GraduationCap
-
-              return (
-                <Card
-                  key={event.id}
-                  className="glassmorphism border-primary/20 hover:border-primary/50 transition-all duration-300 hover:scale-105 group cursor-pointer"
-                >
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-2">
-                        <Icon className="w-5 h-5 text-primary" />
-                        <Badge variant="outline" className={categoryInfo?.color}>
-                          {event.category}
-                        </Badge>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-sm text-muted-foreground">{event.date.toLocaleDateString()}</div>
-                        <div className="text-sm font-medium text-foreground">{event.time}</div>
-                      </div>
-                    </div>
-                    <CardTitle className="text-foreground group-hover:text-primary transition-colors">
-                      {event.title}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground text-sm mb-4">{event.description}</p>
-                    <div className="flex items-center justify-between">
-                      <div className="text-sm">
-                        <span className="text-accent font-medium">{event.maxSpots - event.spots}</span>
-                        <span className="text-muted-foreground"> spots left</span>
-                      </div>
-                      <Button size="sm" className="bg-accent hover:bg-accent/90 text-accent-foreground">
-                        Register
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
-        </div>
+    <div className="min-h-screen bg-[#0B0E11] relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 opacity-30">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-[#FFD43B]/20 to-[#00BFFF]/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-l from-[#18E0FF]/15 to-[#FFC300]/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-conic from-[#FFD43B]/5 via-[#00BFFF]/5 to-[#FFD43B]/5 rounded-full blur-3xl animate-spin-slow"></div>
       </div>
-    </section>
+
+      <section className="relative z-10 py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Animated Header */}
+          <div className="text-center mb-16 relative">
+            <div className="inline-block relative">
+              <h2 className="text-6xl md:text-7xl font-black bg-gradient-to-r from-[#FFD43B] via-[#00BFFF] to-[#18E0FF] bg-clip-text text-transparent mb-6 animate-gradient-x tracking-tight">
+                Event Calendar
+              </h2>
+              <div className="absolute -inset-4 bg-gradient-to-r from-[#FFD43B]/20 to-[#00BFFF]/20 blur-xl rounded-full animate-pulse"></div>
+            </div>
+            <p className="text-xl text-[#AEB4BB] max-w-3xl mx-auto leading-relaxed">
+              Discover amazing events tailored for different age groups and interests with our interactive calendar experience
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            {/* Enhanced Controls Panel */}
+            <div className="lg:col-span-1 space-y-6">
+              {/* Audience Toggle with Advanced Animation */}
+              <Card className="bg-[#1A1D21]/80 backdrop-blur-xl border border-[#3C4A57]/30 hover:border-[#00BFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 group">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-white flex items-center gap-3 group-hover:text-[#FFD43B] transition-colors duration-300">
+                    <div className="p-2 bg-gradient-to-r from-[#FFD43B]/20 to-[#00BFFF]/20 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                      <Users className="w-5 h-5" />
+                    </div>
+                    Target Audience
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 gap-3">
+                    {[
+                      { key: "Kids", icon: Baby, label: "Kids Events" },
+                      { key: "Adults", icon: Users, label: "Adult Events" }
+                    ].map((audience) => {
+                      const Icon = audience.icon
+                      const isSelected = selectedAudience === audience.key
+                      return (
+                        <Button
+                          key={audience.key}
+                          onClick={() => setSelectedAudience(audience.key as "Kids" | "Adults")}
+                          className={`relative overflow-hidden h-12 transition-all duration-300 transform hover:scale-105 ${isSelected
+                            ? "bg-gradient-to-r from-[#FFD43B] to-[#FFC300] text-[#0B0E11] font-bold shadow-lg shadow-[#FFD43B]/30"
+                            : "bg-[#2C3136] border border-[#3C4A57] text-[#AEB4BB] hover:bg-gradient-to-r hover:from-[#FFD43B]/20 hover:to-[#00BFFF]/20 hover:text-white hover:border-[#00BFFF]/50"
+                            }`}
+                        >
+                          <Icon className="w-4 h-4 mr-3" />
+                          {audience.label}
+                          {isSelected && (
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
+                          )}
+                        </Button>
+                      )
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Enhanced Category Filters */}
+              <Card className="bg-[#1A1D21]/80 backdrop-blur-xl border border-[#3C4A57]/30 hover:border-[#00BFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 group">
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-white group-hover:text-[#FFD43B] transition-colors duration-300">Event Categories</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {categories.map((category) => {
+                      const Icon = category.icon
+                      const isSelected = selectedCategories.includes(category.name)
+                      return (
+                        <Button
+                          key={category.name}
+                          onClick={() => toggleCategory(category.name)}
+                          className={`w-full h-12 justify-start relative overflow-hidden transition-all duration-300 transform hover:scale-105 ${isSelected
+                            ? `bg-gradient-to-r ${category.color} text-[#0B0E11] font-bold shadow-lg`
+                            : `bg-[#2C3136] border ${category.borderColor} ${category.textColor} hover:${category.bgColor} hover:border-opacity-70`
+                            }`}
+                        >
+                          <Icon className="w-5 h-5 mr-3" />
+                          {category.name}
+                          {isSelected && (
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
+                          )}
+                        </Button>
+                      )
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Enhanced Stats Card */}
+              <Card className="bg-[#1A1D21]/80 backdrop-blur-xl border border-[#3C4A57]/30 hover:border-[#00BFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 group overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#FFD43B]/5 to-[#00BFFF]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <CardHeader className="relative z-10">
+                  <CardTitle className="text-white flex items-center gap-2 group-hover:text-[#FFD43B] transition-colors duration-300">
+                    <Star className="w-5 h-5" />
+                    This Month
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="relative z-10">
+                  <div className="space-y-4">
+                    <div className="flex justify-between items-center p-3 bg-[#2C3136]/50 rounded-lg backdrop-blur-sm">
+                      <span className="text-[#AEB4BB]">Total Events</span>
+                      <span className="text-2xl font-bold text-[#FFD43B]">{filteredEvents.length}</span>
+                    </div>
+                    <div className="flex justify-between items-center p-3 bg-[#2C3136]/50 rounded-lg backdrop-blur-sm">
+                      <span className="text-[#AEB4BB]">Available Spots</span>
+                      <span className="text-2xl font-bold text-[#00BFFF]">
+                        {filteredEvents.reduce((sum, event) => sum + (event.maxSpots - event.spots), 0)}
+                      </span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Enhanced Calendar Grid */}
+            <div className="lg:col-span-3">
+              <Card className="bg-[#1A1D21]/80 backdrop-blur-xl border border-[#3C4A57]/30 hover:border-[#00BFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#FFD43B]/3 to-[#00BFFF]/3"></div>
+                <CardHeader className="relative z-10 border-b border-[#3C4A57]/30">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-white text-3xl font-bold bg-gradient-to-r from-[#FFD43B] to-[#00BFFF] bg-clip-text text-transparent">
+                      {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+                    </CardTitle>
+                    <div className="flex gap-3">
+                      <Button
+                        onClick={() => navigateMonth("prev")}
+                        className="bg-[#2C3136] border border-[#3C4A57] text-[#AEB4BB] hover:bg-gradient-to-r hover:from-[#FFD43B]/20 hover:to-[#00BFFF]/20 hover:text-white hover:border-[#00BFFF]/50 transition-all duration-300 hover:scale-110"
+                      >
+                        <ChevronLeft className="w-4 h-4" />
+                      </Button>
+                      <Button
+                        onClick={() => navigateMonth("next")}
+                        className="bg-[#2C3136] border border-[#3C4A57] text-[#AEB4BB] hover:bg-gradient-to-r hover:from-[#FFD43B]/20 hover:to-[#00BFFF]/20 hover:text-white hover:border-[#00BFFF]/50 transition-all duration-300 hover:scale-110"
+                      >
+                        <ChevronRight className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="relative z-10 p-6">
+                  {/* Day Headers */}
+                  <div className="grid grid-cols-7 gap-2 mb-4">
+                    {dayNames.map((day) => (
+                      <div key={day} className="p-3 text-center text-sm font-bold text-[#FFD43B] bg-[#2C3136]/30 rounded-lg backdrop-blur-sm">
+                        {day}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Calendar Days */}
+                  <div className="grid grid-cols-7 gap-2" key={animationKey}>
+                    {getDaysInMonth(currentDate).map((date, index) => {
+                      const dayEvents = getEventsForDate(date)
+                      const isToday =
+                        date &&
+                        date.getDate() === new Date().getDate() &&
+                        date.getMonth() === new Date().getMonth() &&
+                        date.getFullYear() === new Date().getFullYear()
+
+                      return (
+                        <div
+                          key={index}
+                          className={`min-h-[100px] p-2 rounded-xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-1 cursor-pointer group ${date ? "opacity-100" : "opacity-0"
+                            } ${isToday
+                              ? "bg-gradient-to-br from-[#FFD43B]/20 to-[#00BFFF]/20 border-2 border-[#FFD43B] shadow-lg shadow-[#FFD43B]/30"
+                              : dayEvents.length > 0
+                                ? "bg-[#2C3136]/50 border border-[#3C4A57]/50 hover:border-[#00BFFF]/50 hover:bg-gradient-to-br hover:from-[#FFD43B]/10 hover:to-[#00BFFF]/10"
+                                : "bg-[#2C3136]/30 border border-[#3C4A57]/30 hover:border-[#AEB4BB]/30 hover:bg-[#2C3136]/50"
+                            }`}
+                          style={{
+                            animationDelay: `${index * 50}ms`,
+                            animation: `fadeInUp 0.6s ease-out forwards`
+                          }}
+                        >
+                          {date && (
+                            <>
+                              <div className={`text-sm font-bold mb-2 ${isToday
+                                ? "text-[#FFD43B]"
+                                : dayEvents.length > 0
+                                  ? "text-white group-hover:text-[#00BFFF]"
+                                  : "text-[#AEB4BB] group-hover:text-white"
+                                } transition-colors duration-300`}>
+                                {date.getDate()}
+                              </div>
+                              <div className="space-y-1">
+                                {dayEvents.slice(0, 2).map((event, eventIndex) => {
+                                  const categoryInfo = categories.find((c) => c.name === event.category)
+                                  return (
+                                    <Badge
+                                      key={event.id}
+                                      className={`text-xs px-2 py-1 h-6 cursor-pointer transition-all duration-300 transform hover:scale-110 bg-gradient-to-r ${categoryInfo?.color} text-[#0B0E11] font-semibold shadow-lg`}
+                                      title={`${event.title} - ${event.time}`}
+                                      style={{
+                                        animationDelay: `${(index * 50) + (eventIndex * 100)}ms`,
+                                        animation: `slideIn 0.5s ease-out forwards`
+                                      }}
+                                    >
+                                      {event.title.length > 10 ? `${event.title.slice(0, 10)}...` : event.title}
+                                    </Badge>
+                                  )
+                                })}
+                                {dayEvents.length > 2 && (
+                                  <Badge className="text-xs px-2 py-1 h-6 bg-[#AEB4BB]/20 text-[#AEB4BB] border border-[#AEB4BB]/30 hover:bg-[#00BFFF]/20 hover:text-[#00BFFF] transition-all duration-300">
+                                    +{dayEvents.length - 2} more
+                                  </Badge>
+                                )}
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Enhanced Upcoming Events List */}
+          <div className="mt-16">
+            <h3 className="text-4xl font-bold text-white mb-8 text-center bg-gradient-to-r from-[#FFD43B] to-[#00BFFF] bg-clip-text text-transparent">
+              Upcoming {selectedAudience} Events
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" key={`events-${animationKey}`}>
+              {filteredEvents.slice(0, 6).map((event, index) => {
+                const categoryInfo = categories.find((c) => c.name === event.category)
+                const Icon = categoryInfo?.icon || GraduationCap
+                const spotsLeft = event.maxSpots - event.spots
+
+                return (
+                  <Card
+                    key={event.id}
+                    className="bg-[#1A1D21]/90 backdrop-blur-xl border border-[#3C4A57]/30 hover:border-[#00BFFF]/50 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#00BFFF]/20 group cursor-pointer overflow-hidden relative"
+                    onMouseEnter={() => setHoveredEvent(event.id)}
+                    onMouseLeave={() => setHoveredEvent(null)}
+                    style={{
+                      animationDelay: `${index * 150}ms`,
+                      animation: `fadeInUp 0.8s ease-out forwards`
+                    }}
+                  >
+                    {/* Animated Background */}
+                    <div className={`absolute inset-0 bg-gradient-to-br ${categoryInfo?.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+
+                    {/* Glowing Border Effect */}
+                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#FFD43B]/0 via-[#00BFFF]/0 to-[#FFD43B]/0 group-hover:from-[#FFD43B]/20 group-hover:via-[#00BFFF]/20 group-hover:to-[#FFD43B]/20 blur-sm transition-all duration-500"></div>
+
+                    <CardHeader className="relative z-10">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                          <div className={`p-3 rounded-xl bg-gradient-to-r ${categoryInfo?.color} text-[#0B0E11] group-hover:scale-110 transition-transform duration-300`}>
+                            <Icon className="w-5 h-5" />
+                          </div>
+                          <Badge className={`bg-gradient-to-r ${categoryInfo?.color} text-[#0B0E11] font-bold px-3 py-1 shadow-lg`}>
+                            {event.category}
+                          </Badge>
+                        </div>
+                        <div className="text-right">
+                          <div className="flex items-center gap-1 text-sm text-[#AEB4BB] mb-1">
+                            <Calendar className="w-3 h-3" />
+                            {event.date.toLocaleDateString()}
+                          </div>
+                          <div className="flex items-center gap-1 text-sm font-medium text-[#00BFFF]">
+                            <Clock className="w-3 h-3" />
+                            {event.time}
+                          </div>
+                        </div>
+                      </div>
+                      <CardTitle className="text-white group-hover:text-[#FFD43B] transition-colors duration-300 text-xl font-bold">
+                        {event.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="relative z-10">
+                      <p className="text-[#AEB4BB] text-sm mb-6 group-hover:text-white transition-colors duration-300 leading-relaxed">
+                        {event.description}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className={`w-3 h-3 rounded-full ${spotsLeft > 5 ? 'bg-[#18E0FF]' : spotsLeft > 0 ? 'bg-[#FFD43B]' : 'bg-red-500'}`}></div>
+                          <span className="text-sm">
+                            <span className={`font-bold ${spotsLeft > 5 ? 'text-[#18E0FF]' : spotsLeft > 0 ? 'text-[#FFD43B]' : 'text-red-500'}`}>
+                              {spotsLeft}
+                            </span>
+                            <span className="text-[#AEB4BB]"> spots left</span>
+                          </span>
+                        </div>
+                        <Button
+                          className={`bg-gradient-to-r from-[#FFD43B] to-[#FFC300] text-[#0B0E11] font-bold hover:from-[#FFC300] hover:to-[#FFD43B] transition-all duration-300 transform hover:scale-110 shadow-lg hover:shadow-[#FFD43B]/30 px-6 ${hoveredEvent === event.id ? 'animate-pulse' : ''
+                            }`}
+                        >
+                          Register Now
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )
+              })}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <style jsx>{`
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes shimmer {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100%);
+          }
+        }
+
+        @keyframes gradient-x {
+          0%, 100% {
+            background-size: 200% 200%;
+            background-position: left center;
+          }
+          50% {
+            background-size: 200% 200%;
+            background-position: right center;
+          }
+        }
+
+        @keyframes spin-slow {
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
+        }
+
+        .animate-shimmer {
+          animation: shimmer 2s infinite;
+        }
+
+        .animate-gradient-x {
+          animation: gradient-x 3s ease infinite;
+        }
+
+        .animate-spin-slow {
+          animation: spin-slow 20s linear infinite;
+        }
+      `}</style>
+    </div>
   )
 }

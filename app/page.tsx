@@ -1,5 +1,5 @@
-import { Navigation } from "@/components/navigation"
-import { HeroSection } from "@/components/hero-section"
+import Navigation from "@/components/navigation"
+import HeroSection from "@/components/hero-section"
 import { CalendarSystem } from "@/components/calendar-system"
 import { EventsGallery } from "@/components/events-gallery"
 import { AdvertisementSlots } from "@/components/advertisement-slots"
