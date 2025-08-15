@@ -5,7 +5,7 @@ import { GeistMono } from "geist/font/mono"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "EventHub - Premium Events Platform",
+  title: "Compverse",
   description:
     "Connect communities through premium experiences. Discover amazing events and create unforgettable memories.",
   generator: "v0.app",
