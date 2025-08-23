@@ -57,12 +57,12 @@ export function AdvertisementSlots() {
   ]
 
   return (
-    <div className="min-h-screen bg-[#0B0E11] relative overflow-hidden">
+    <div className="min-h-screen bg-[#0c1838] relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-32 left-16 w-64 h-64 bg-gradient-to-r from-[#FFD43B]/25 to-[#00BFFF]/25 rounded-full blur-3xl animate-pulse delay-700"></div>
-        <div className="absolute bottom-32 right-16 w-80 h-80 bg-gradient-to-l from-[#18E0FF]/20 to-[#FFC300]/20 rounded-full blur-3xl animate-pulse delay-1200"></div>
-        <div className="absolute top-2/3 left-1/4 w-96 h-96 bg-gradient-conic from-[#FFD43B]/10 via-[#00BFFF]/10 to-[#FFD43B]/10 rounded-full blur-3xl animate-spin-slow"></div>
+        <div className="absolute top-32 left-16 w-64 h-64 bg-gradient-to-r from-[#F4C430]/25 to-[#00BFFF]/25 rounded-full blur-3xl animate-pulse delay-700"></div>
+        <div className="absolute bottom-32 right-16 w-80 h-80 bg-gradient-to-l from-[#00BFFF]/20 to-[#F4C430]/20 rounded-full blur-3xl animate-pulse delay-1200"></div>
+        <div className="absolute top-2/3 left-1/4 w-96 h-96 bg-gradient-conic from-[#F4C430]/10 via-[#00BFFF]/10 to-[#F4C430]/10 rounded-full blur-3xl animate-spin-slow"></div>
       </div>
 
       <section className="relative z-10 py-20 px-4 sm:px-6 lg:px-8">
@@ -70,16 +70,16 @@ export function AdvertisementSlots() {
           {/* Enhanced Header */}
           <div className="text-center mb-16 relative" key={`header-${animationKey}`}>
             <div className="inline-block relative mb-8">
-              <h2 className="text-6xl md:text-7xl font-black bg-gradient-to-r from-[#FFD43B] via-[#00BFFF] to-[#18E0FF] bg-clip-text text-transparent mb-6 animate-gradient-x tracking-tight">
+              <h2 className="text-6xl md:text-7xl font-black bg-gradient-to-r from-[#F4C430] via-[#00BFFF] to-[#00BFFF] bg-clip-text text-transparent mb-6 animate-gradient-x tracking-tight">
                 Premium Partners
               </h2>
-              <div className="absolute -inset-6 bg-gradient-to-r from-[#FFD43B]/20 to-[#00BFFF]/20 blur-xl rounded-full animate-pulse"></div>
+              <div className="absolute -inset-6 bg-gradient-to-r from-[#F4C430]/20 to-[#00BFFF]/20 blur-xl rounded-full animate-pulse"></div>
             </div>
 
             <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#FFD43B] to-transparent"></div>
-              <div className="p-3 bg-gradient-to-r from-[#FFD43B]/20 to-[#00BFFF]/20 rounded-xl">
-                <Crown className="w-6 h-6 text-[#FFD43B]" />
+              <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#F4C430] to-transparent"></div>
+              <div className="p-3 bg-gradient-to-r from-[#F4C430]/20 to-[#00BFFF]/20 rounded-xl">
+                <Crown className="w-6 h-6 text-[#F4C430]" />
               </div>
               <div className="w-16 h-px bg-gradient-to-r from-transparent via-[#00BFFF] to-transparent"></div>
             </div>
@@ -97,7 +97,7 @@ export function AdvertisementSlots() {
               return (
                 <Card
                   key={ad.id}
-                  className="bg-[#1A1D21]/90 backdrop-blur-xl border border-[#3C4A57]/30 hover:border-[#00BFFF]/50 transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 group cursor-pointer overflow-hidden relative shadow-2xl hover:shadow-[#00BFFF]/20"
+                  className="bg-[#162855]/90 backdrop-blur-xl border border-[#1e3a8a]/30 hover:border-[#00BFFF]/50 transition-all duration-700 transform hover:scale-105 hover:-translate-y-3 group cursor-pointer overflow-hidden relative shadow-2xl hover:shadow-[#00BFFF]/20"
                   onMouseEnter={() => setHoveredCard(ad.id)}
                   onMouseLeave={() => setHoveredCard(null)}
                   style={{
@@ -119,18 +119,18 @@ export function AdvertisementSlots() {
                     />
 
                     {/* Advanced Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0B0E11]/90 via-[#0B0E11]/30 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0c1838]/90 via-[#0c1838]/30 to-transparent" />
 
                     {/* Floating Particles Effect */}
                     <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
-                      <div className="absolute top-4 left-4 w-1 h-1 bg-[#FFD43B] rounded-full animate-ping"></div>
+                      <div className="absolute top-4 left-4 w-1 h-1 bg-[#F4C430] rounded-full animate-ping"></div>
                       <div className="absolute top-8 right-8 w-1 h-1 bg-[#00BFFF] rounded-full animate-ping delay-300"></div>
-                      <div className="absolute bottom-12 left-8 w-1 h-1 bg-[#18E0FF] rounded-full animate-ping delay-500"></div>
+                      <div className="absolute bottom-12 left-8 w-1 h-1 bg-[#00BFFF] rounded-full animate-ping delay-500"></div>
                     </div>
 
                     {/* Enhanced Badge */}
                     <div className="absolute top-6 left-6">
-                      <Badge className={`${ad.badgeColor} text-[#0B0E11] font-bold px-4 py-2 shadow-xl backdrop-blur-sm border-0 animate-pulse`}>
+                      <Badge className={`${ad.badgeColor} text-[#0c1838] font-bold px-4 py-2 shadow-xl backdrop-blur-sm border-0 animate-pulse`}>
                         <Sparkles className="w-3 h-3 mr-1" />
                         {ad.badge}
                       </Badge>
@@ -138,8 +138,8 @@ export function AdvertisementSlots() {
 
                     {/* Enhanced Icon */}
                     <div className="absolute top-6 right-6">
-                      <div className={`bg-[#1A1D21]/80 backdrop-blur-lg rounded-full p-3 border border-[#3C4A57]/50 group-hover:border-[#FFD43B]/50 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 ${ad.glowColor} group-hover:shadow-lg`}>
-                        <Icon className="w-5 h-5 text-[#FFD43B] group-hover:text-[#FFC300] transition-colors duration-300" />
+                      <div className={`bg-[#162855]/80 backdrop-blur-lg rounded-full p-3 border border-[#1e3a8a]/50 group-hover:border-[#F4C430]/50 transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 ${ad.glowColor} group-hover:shadow-lg`}>
+                        <Icon className="w-5 h-5 text-[#F4C430] group-hover:text-[#FFD43B] transition-colors duration-300" />
                       </div>
                     </div>
 
@@ -149,8 +149,8 @@ export function AdvertisementSlots() {
 
                   <CardContent className="p-6 relative z-10">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-1 h-8 bg-gradient-to-b from-[#FFD43B] to-[#00BFFF] rounded-full"></div>
-                      <h3 className="text-xl font-bold text-white group-hover:text-[#FFD43B] transition-colors duration-300">
+                      <div className="w-1 h-8 bg-gradient-to-b from-[#F4C430] to-[#00BFFF] rounded-full"></div>
+                      <h3 className="text-xl font-bold text-white group-hover:text-[#F4C430] transition-colors duration-300">
                         {ad.title}
                       </h3>
                     </div>
@@ -160,7 +160,7 @@ export function AdvertisementSlots() {
                     </p>
 
                     <Button
-                      className={`w-full h-12 bg-gradient-to-r from-[#2C3136] to-[#1A1D21] border border-[#3C4A57] text-[#AEB4BB] hover:bg-gradient-to-r hover:${ad.color} hover:text-[#0B0E11] hover:border-transparent transition-all duration-300 transform hover:scale-105 hover:${ad.glowColor} hover:shadow-lg font-semibold relative overflow-hidden group/button ${hoveredCard === ad.id ? 'animate-pulse' : ''
+                      className={`w-full h-12 bg-gradient-to-r from-[#1e3a8a] to-[#162855] border border-[#1e3a8a] text-[#AEB4BB] hover:bg-gradient-to-r hover:${ad.color} hover:text-[#0c1838] hover:border-transparent transition-all duration-300 transform hover:scale-105 hover:${ad.glowColor} hover:shadow-lg font-semibold relative overflow-hidden group/button ${hoveredCard === ad.id ? 'animate-pulse' : ''
                         }`}
                     >
                       <span className="relative z-10 flex items-center justify-center">
@@ -182,15 +182,15 @@ export function AdvertisementSlots() {
 
           {/* Enhanced Bottom CTA */}
           <div className="text-center mt-16">
-            <div className="inline-flex items-center gap-6 p-6 bg-[#1A1D21]/80 backdrop-blur-xl rounded-2xl border border-[#3C4A57]/30 hover:border-[#00BFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20">
-              <div className="p-4 bg-gradient-to-r from-[#FFD43B]/20 to-[#00BFFF]/20 rounded-xl">
-                <Award className="w-8 h-8 text-[#FFD43B]" />
+            <div className="inline-flex items-center gap-6 p-6 bg-[#162855]/80 backdrop-blur-xl rounded-2xl border border-[#1e3a8a]/30 hover:border-[#00BFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20">
+              <div className="p-4 bg-gradient-to-r from-[#F4C430]/20 to-[#00BFFF]/20 rounded-xl">
+                <Award className="w-8 h-8 text-[#F4C430]" />
               </div>
               <div className="text-left">
                 <h4 className="text-xl font-bold text-white mb-1">Become a Partner</h4>
                 <p className="text-[#AEB4BB]">Join our network of premium service providers</p>
               </div>
-              <Button className="bg-gradient-to-r from-[#FFD43B] to-[#FFC300] text-[#0B0E11] font-bold hover:from-[#FFC300] hover:to-[#FFD43B] transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-[#FFD43B]/30 px-8">
+              <Button className="bg-gradient-to-r from-[#F4C430] to-[#FFD43B] text-[#0c1838] font-bold hover:from-[#FFD43B] hover:to-[#F4C430] transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-[#F4C430]/30 px-8">
                 Learn More
               </Button>
             </div>
@@ -199,62 +199,59 @@ export function AdvertisementSlots() {
       </section>
 
       <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(40px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        @keyframes shimmer {
-          0% {
-            transform: translateX(-100%);
-          }
-          100% {
-            transform: translateX(100%);
-          }
-        }
+    @keyframes shimmer {
+      0% {
+        transform: translateX(-100%);
+      }
+      100% {
+        transform: translateX(100%);
+      }
+    }
 
-        @keyframes gradient-x {
-          0%, 100% {
-            background-size: 200% 200%;
-            background-position: left center;
-          }
-          50% {
-            background-size: 200% 200%;
-            background-position: right center;
-          }
-        }
+    @keyframes gradient-x {
+      0%, 100% {
+        background-size: 200% 200%;
+        background-position: left center;
+      }
+      50% {
+        background-size: 200% 200%;
+        background-position: right center;
+      }
+    }
 
-        @keyframes spin-slow {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
+    @keyframes spin-slow {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
-        .animate-shimmer {
-          animation: shimmer 2s infinite;
-        }
+    .animate-shimmer {
+      animation: shimmer 2s infinite;
+    }
 
-        .animate-gradient-x {
-          animation: gradient-x 3s ease infinite;
-        }
+    .animate-gradient-x {
+      animation: gradient-x 3s ease infinite;
+    }
 
-        .animate-spin-slow {
-          animation: spin-slow 25s linear infinite;
-        }
-
-        .shadow-gradient-rainbow {
-          box-shadow: 0 10px 25px -5px rgba(255, 212, 59, 0.3), 0 0 20px rgba(0, 191, 255, 0.2);
-        }
-      `}</style>
+    .animate-spin-slow {
+      animation: spin-slow 25s linear infinite;
+    }
+  `}</style>
     </div>
+
   )
 }

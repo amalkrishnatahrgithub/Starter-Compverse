@@ -137,6 +137,19 @@ export function CalendarSystem() {
     )
   }
 
+  const getCategoryCardClass = (category: string) => {
+    switch (category) {
+      case "Educational":
+        return "border-[#FFD43B]/40 hover:border-[#FFD43B]/70 hover:shadow-[#FFD43B]/30";
+      case "Games":
+        return "border-[#00BFFF]/40 hover:border-[#00BFFF]/70 hover:shadow-[#00BFFF]/30";
+      case "Sports":
+        return "border-[#18E0FF]/40 hover:border-[#18E0FF]/70 hover:shadow-[#18E0FF]/30";
+      default:
+        return "border-[#1e3a8a]/30";
+    }
+  };
+
   const getDaysInMonth = (date: Date) => {
     const year = date.getFullYear()
     const month = date.getMonth()
@@ -190,12 +203,12 @@ export function CalendarSystem() {
   const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
 
   return (
-    <div className="min-h-screen bg-[#0B0E11] relative overflow-hidden">
+    <div className="min-h-screen bg-[#0c1838] relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 opacity-30">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-[#FFD43B]/20 to-[#00BFFF]/20 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-20 left-10 w-72 h-72 bg-gradient-to-r from-[#F4C430]/20 to-[#00BFFF]/20 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-gradient-to-l from-[#18E0FF]/15 to-[#FFC300]/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-conic from-[#FFD43B]/5 via-[#00BFFF]/5 to-[#FFD43B]/5 rounded-full blur-3xl animate-spin-slow"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-conic from-[#F4C430]/5 via-[#00BFFF]/5 to-[#F4C430]/5 rounded-full blur-3xl animate-spin-slow"></div>
       </div>
 
       <section className="relative z-10 py-20 px-4 sm:px-6 lg:px-8">
@@ -203,10 +216,10 @@ export function CalendarSystem() {
           {/* Animated Header */}
           <div className="text-center mb-16 relative">
             <div className="inline-block relative">
-              <h2 className="text-6xl md:text-7xl font-black bg-gradient-to-r from-[#FFD43B] via-[#00BFFF] to-[#18E0FF] bg-clip-text text-transparent mb-6 animate-gradient-x tracking-tight">
+              <h2 className="text-6xl md:text-7xl font-black bg-gradient-to-r from-[#F4C430] via-[#00BFFF] to-[#18E0FF] bg-clip-text text-transparent mb-6 animate-gradient-x tracking-tight">
                 Event Calendar
               </h2>
-              <div className="absolute -inset-4 bg-gradient-to-r from-[#FFD43B]/20 to-[#00BFFF]/20 blur-xl rounded-full animate-pulse"></div>
+              <div className="absolute -inset-4 bg-gradient-to-r from-[#F4C430]/20 to-[#00BFFF]/20 blur-xl rounded-full animate-pulse"></div>
             </div>
             <p className="text-xl text-[#AEB4BB] max-w-3xl mx-auto leading-relaxed">
               Discover amazing events tailored for different age groups and interests with our interactive calendar experience
@@ -217,10 +230,10 @@ export function CalendarSystem() {
             {/* Enhanced Controls Panel */}
             <div className="lg:col-span-1 space-y-6">
               {/* Audience Toggle with Advanced Animation */}
-              <Card className="bg-[#1A1D21]/80 backdrop-blur-xl border border-[#3C4A57]/30 hover:border-[#00BFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 group">
+              <Card className="bg-[#162855]/80 backdrop-blur-xl border border-[#1e3a8a]/30 hover:border-[#00BFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 group">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-white flex items-center gap-3 group-hover:text-[#FFD43B] transition-colors duration-300">
-                    <div className="p-2 bg-gradient-to-r from-[#FFD43B]/20 to-[#00BFFF]/20 rounded-lg group-hover:scale-110 transition-transform duration-300">
+                  <CardTitle className="text-white flex items-center gap-3 group-hover:text-[#F4C430] transition-colors duration-300">
+                    <div className="p-2 bg-gradient-to-r from-[#F4C430]/20 to-[#00BFFF]/20 rounded-lg group-hover:scale-110 transition-transform duration-300">
                       <Users className="w-5 h-5" />
                     </div>
                     Target Audience
@@ -239,8 +252,8 @@ export function CalendarSystem() {
                           key={audience.key}
                           onClick={() => setSelectedAudience(audience.key as "Kids" | "Adults")}
                           className={`relative overflow-hidden h-12 transition-all duration-300 transform hover:scale-105 ${isSelected
-                            ? "bg-gradient-to-r from-[#FFD43B] to-[#FFC300] text-[#0B0E11] font-bold shadow-lg shadow-[#FFD43B]/30"
-                            : "bg-[#2C3136] border border-[#3C4A57] text-[#AEB4BB] hover:bg-gradient-to-r hover:from-[#FFD43B]/20 hover:to-[#00BFFF]/20 hover:text-white hover:border-[#00BFFF]/50"
+                            ? "bg-gradient-to-r from-[#F4C430] to-[#FFC300] text-[#0c1838] font-bold shadow-lg shadow-[#F4C430]/30"
+                            : "bg-[#162855] border border-[#1e3a8a] text-[#AEB4BB] hover:bg-gradient-to-r hover:from-[#F4C430]/20 hover:to-[#00BFFF]/20 hover:text-white hover:border-[#00BFFF]/50"
                             }`}
                         >
                           <Icon className="w-4 h-4 mr-3" />
@@ -256,9 +269,9 @@ export function CalendarSystem() {
               </Card>
 
               {/* Enhanced Category Filters */}
-              <Card className="bg-[#1A1D21]/80 backdrop-blur-xl border border-[#3C4A57]/30 hover:border-[#00BFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 group">
+              <Card className="bg-[#162855]/80 backdrop-blur-xl border border-[#1e3a8a]/30 hover:border-[#00BFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 group">
                 <CardHeader className="pb-4">
-                  <CardTitle className="text-white group-hover:text-[#FFD43B] transition-colors duration-300">Event Categories</CardTitle>
+                  <CardTitle className="text-white group-hover:text-[#F4C430] transition-colors duration-300">Event Categories</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-3">
@@ -270,8 +283,8 @@ export function CalendarSystem() {
                           key={category.name}
                           onClick={() => toggleCategory(category.name)}
                           className={`w-full h-12 justify-start relative overflow-hidden transition-all duration-300 transform hover:scale-105 ${isSelected
-                            ? `bg-gradient-to-r ${category.color} text-[#0B0E11] font-bold shadow-lg`
-                            : `bg-[#2C3136] border ${category.borderColor} ${category.textColor} hover:${category.bgColor} hover:border-opacity-70`
+                            ? `bg-gradient-to-r ${category.color} text-[#0c1838] font-bold shadow-lg`
+                            : `bg-[#162855] border ${category.borderColor} ${category.textColor} hover:${category.bgColor} hover:border-opacity-70`
                             }`}
                         >
                           <Icon className="w-5 h-5 mr-3" />
@@ -287,21 +300,21 @@ export function CalendarSystem() {
               </Card>
 
               {/* Enhanced Stats Card */}
-              <Card className="bg-[#1A1D21]/80 backdrop-blur-xl border border-[#3C4A57]/30 hover:border-[#00BFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 group overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#FFD43B]/5 to-[#00BFFF]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <Card className="bg-[#162855]/80 backdrop-blur-xl border border-[#1e3a8a]/30 hover:border-[#00BFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 group overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#F4C430]/5 to-[#00BFFF]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <CardHeader className="relative z-10">
-                  <CardTitle className="text-white flex items-center gap-2 group-hover:text-[#FFD43B] transition-colors duration-300">
+                  <CardTitle className="text-white flex items-center gap-2 group-hover:text-[#F4C430] transition-colors duration-300">
                     <Star className="w-5 h-5" />
                     This Month
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="relative z-10">
                   <div className="space-y-4">
-                    <div className="flex justify-between items-center p-3 bg-[#2C3136]/50 rounded-lg backdrop-blur-sm">
+                    <div className="flex justify-between items-center p-3 bg-[#162855]/50 rounded-lg backdrop-blur-sm">
                       <span className="text-[#AEB4BB]">Total Events</span>
-                      <span className="text-2xl font-bold text-[#FFD43B]">{filteredEvents.length}</span>
+                      <span className="text-2xl font-bold text-[#F4C430]">{filteredEvents.length}</span>
                     </div>
-                    <div className="flex justify-between items-center p-3 bg-[#2C3136]/50 rounded-lg backdrop-blur-sm">
+                    <div className="flex justify-between items-center p-3 bg-[#162855]/50 rounded-lg backdrop-blur-sm">
                       <span className="text-[#AEB4BB]">Available Spots</span>
                       <span className="text-2xl font-bold text-[#00BFFF]">
                         {filteredEvents.reduce((sum, event) => sum + (event.maxSpots - event.spots), 0)}
@@ -314,23 +327,23 @@ export function CalendarSystem() {
 
             {/* Enhanced Calendar Grid */}
             <div className="lg:col-span-3">
-              <Card className="bg-[#1A1D21]/80 backdrop-blur-xl border border-[#3C4A57]/30 hover:border-[#00BFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 overflow-hidden relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#FFD43B]/3 to-[#00BFFF]/3"></div>
-                <CardHeader className="relative z-10 border-b border-[#3C4A57]/30">
+              <Card className="bg-[#162855]/80 backdrop-blur-xl border border-[#1e3a8a]/30 hover:border-[#00BFFF]/50 transition-all duration-500 hover:shadow-2xl hover:shadow-[#00BFFF]/20 overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#F4C430]/3 to-[#00BFFF]/3"></div>
+                <CardHeader className="relative z-10 border-b border-[#1e3a8a]/30">
                   <div className="flex items-center justify-between">
-                    <CardTitle className="text-white text-3xl font-bold bg-gradient-to-r from-[#FFD43B] to-[#00BFFF] bg-clip-text text-transparent">
+                    <CardTitle className="text-white text-3xl font-bold bg-gradient-to-r from-[#F4C430] to-[#00BFFF] bg-clip-text text-transparent">
                       {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
                     </CardTitle>
                     <div className="flex gap-3">
                       <Button
                         onClick={() => navigateMonth("prev")}
-                        className="bg-[#2C3136] border border-[#3C4A57] text-[#AEB4BB] hover:bg-gradient-to-r hover:from-[#FFD43B]/20 hover:to-[#00BFFF]/20 hover:text-white hover:border-[#00BFFF]/50 transition-all duration-300 hover:scale-110"
+                        className="bg-[#162855] border border-[#1e3a8a] text-[#AEB4BB] hover:bg-gradient-to-r hover:from-[#F4C430]/20 hover:to-[#00BFFF]/20 hover:text-white hover:border-[#00BFFF]/50 transition-all duration-300 hover:scale-110"
                       >
                         <ChevronLeft className="w-4 h-4" />
                       </Button>
                       <Button
                         onClick={() => navigateMonth("next")}
-                        className="bg-[#2C3136] border border-[#3C4A57] text-[#AEB4BB] hover:bg-gradient-to-r hover:from-[#FFD43B]/20 hover:to-[#00BFFF]/20 hover:text-white hover:border-[#00BFFF]/50 transition-all duration-300 hover:scale-110"
+                        className="bg-[#162855] border border-[#1e3a8a] text-[#AEB4BB] hover:bg-gradient-to-r hover:from-[#F4C430]/20 hover:to-[#00BFFF]/20 hover:text-white hover:border-[#00BFFF]/50 transition-all duration-300 hover:scale-110"
                       >
                         <ChevronRight className="w-4 h-4" />
                       </Button>
@@ -341,7 +354,7 @@ export function CalendarSystem() {
                   {/* Day Headers */}
                   <div className="grid grid-cols-7 gap-2 mb-4">
                     {dayNames.map((day) => (
-                      <div key={day} className="p-3 text-center text-sm font-bold text-[#FFD43B] bg-[#2C3136]/30 rounded-lg backdrop-blur-sm">
+                      <div key={day} className="p-3 text-center text-sm font-bold text-[#F4C430] bg-[#162855]/30 rounded-lg backdrop-blur-sm">
                         {day}
                       </div>
                     ))}
@@ -362,10 +375,10 @@ export function CalendarSystem() {
                           key={index}
                           className={`min-h-[100px] p-2 rounded-xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-1 cursor-pointer group ${date ? "opacity-100" : "opacity-0"
                             } ${isToday
-                              ? "bg-gradient-to-br from-[#FFD43B]/20 to-[#00BFFF]/20 border-2 border-[#FFD43B] shadow-lg shadow-[#FFD43B]/30"
+                              ? "bg-gradient-to-br from-[#F4C430]/20 to-[#00BFFF]/20 border-2 border-[#F4C430] shadow-lg shadow-[#F4C430]/30"
                               : dayEvents.length > 0
-                                ? "bg-[#2C3136]/50 border border-[#3C4A57]/50 hover:border-[#00BFFF]/50 hover:bg-gradient-to-br hover:from-[#FFD43B]/10 hover:to-[#00BFFF]/10"
-                                : "bg-[#2C3136]/30 border border-[#3C4A57]/30 hover:border-[#AEB4BB]/30 hover:bg-[#2C3136]/50"
+                                ? "bg-[#162855]/50 border border-[#1e3a8a]/50 hover:border-[#00BFFF]/50 hover:bg-gradient-to-br hover:from-[#F4C430]/10 hover:to-[#00BFFF]/10"
+                                : "bg-[#162855]/30 border border-[#1e3a8a]/30 hover:border-[#AEB4BB]/30 hover:bg-[#162855]/50"
                             }`}
                           style={{
                             animationDelay: `${index * 50}ms`,
@@ -375,7 +388,7 @@ export function CalendarSystem() {
                           {date && (
                             <>
                               <div className={`text-sm font-bold mb-2 ${isToday
-                                ? "text-[#FFD43B]"
+                                ? "text-[#F4C430]"
                                 : dayEvents.length > 0
                                   ? "text-white group-hover:text-[#00BFFF]"
                                   : "text-[#AEB4BB] group-hover:text-white"
@@ -388,7 +401,7 @@ export function CalendarSystem() {
                                   return (
                                     <Badge
                                       key={event.id}
-                                      className={`text-xs px-2 py-1 h-6 cursor-pointer transition-all duration-300 transform hover:scale-110 bg-gradient-to-r ${categoryInfo?.color} text-[#0B0E11] font-semibold shadow-lg`}
+                                      className={`text-xs px-2 py-1 h-6 cursor-pointer transition-all duration-300 transform hover:scale-110 bg-gradient-to-r ${categoryInfo?.color} text-[#0c1838] font-semibold shadow-lg`}
                                       title={`${event.title} - ${event.time}`}
                                       style={{
                                         animationDelay: `${(index * 50) + (eventIndex * 100)}ms`,
@@ -418,7 +431,7 @@ export function CalendarSystem() {
 
           {/* Enhanced Upcoming Events List */}
           <div className="mt-16">
-            <h3 className="text-4xl font-bold text-white mb-8 text-center bg-gradient-to-r from-[#FFD43B] to-[#00BFFF] bg-clip-text text-transparent">
+            <h3 className="text-4xl font-bold text-white mb-8 text-center bg-gradient-to-r from-[#F4C430] to-[#00BFFF] bg-clip-text text-transparent">
               Upcoming {selectedAudience} Events
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" key={`events-${animationKey}`}>
@@ -430,7 +443,8 @@ export function CalendarSystem() {
                 return (
                   <Card
                     key={event.id}
-                    className="bg-[#1A1D21]/90 backdrop-blur-xl border border-[#3C4A57]/30 hover:border-[#00BFFF]/50 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#00BFFF]/20 group cursor-pointer overflow-hidden relative"
+                    className={`bg-[#162855]/90 backdrop-blur-xl transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 group cursor-pointer overflow-hidden relative 
+                    ${getCategoryCardClass(event.category)}`}
                     onMouseEnter={() => setHoveredEvent(event.id)}
                     onMouseLeave={() => setHoveredEvent(null)}
                     style={{
@@ -438,19 +452,20 @@ export function CalendarSystem() {
                       animation: `fadeInUp 0.8s ease-out forwards`
                     }}
                   >
+
                     {/* Animated Background */}
                     <div className={`absolute inset-0 bg-gradient-to-br ${categoryInfo?.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
 
                     {/* Glowing Border Effect */}
-                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#FFD43B]/0 via-[#00BFFF]/0 to-[#FFD43B]/0 group-hover:from-[#FFD43B]/20 group-hover:via-[#00BFFF]/20 group-hover:to-[#FFD43B]/20 blur-sm transition-all duration-500"></div>
+                    <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-[#F4C430]/0 via-[#00BFFF]/0 to-[#F4C430]/0 group-hover:from-[#F4C430]/20 group-hover:via-[#00BFFF]/20 group-hover:to-[#F4C430]/20 blur-sm transition-all duration-500"></div>
 
                     <CardHeader className="relative z-10">
                       <div className="flex items-start justify-between mb-4">
                         <div className="flex items-center gap-3">
-                          <div className={`p-3 rounded-xl bg-gradient-to-r ${categoryInfo?.color} text-[#0B0E11] group-hover:scale-110 transition-transform duration-300`}>
+                          <div className={`p-3 rounded-xl bg-gradient-to-r ${categoryInfo?.color} text-[#0c1838] group-hover:scale-110 transition-transform duration-300`}>
                             <Icon className="w-5 h-5" />
                           </div>
-                          <Badge className={`bg-gradient-to-r ${categoryInfo?.color} text-[#0B0E11] font-bold px-3 py-1 shadow-lg`}>
+                          <Badge className={`bg-gradient-to-r ${categoryInfo?.color} text-[#0c1838] font-bold px-3 py-1 shadow-lg`}>
                             {event.category}
                           </Badge>
                         </div>
@@ -465,7 +480,7 @@ export function CalendarSystem() {
                           </div>
                         </div>
                       </div>
-                      <CardTitle className="text-white group-hover:text-[#FFD43B] transition-colors duration-300 text-xl font-bold">
+                      <CardTitle className="text-white group-hover:text-[#F4C430] transition-colors duration-300 text-xl font-bold">
                         {event.title}
                       </CardTitle>
                     </CardHeader>
@@ -475,16 +490,16 @@ export function CalendarSystem() {
                       </p>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <div className={`w-3 h-3 rounded-full ${spotsLeft > 5 ? 'bg-[#18E0FF]' : spotsLeft > 0 ? 'bg-[#FFD43B]' : 'bg-red-500'}`}></div>
+                          <div className={`w-3 h-3 rounded-full ${spotsLeft > 5 ? 'bg-[#18E0FF]' : spotsLeft > 0 ? 'bg-[#F4C430]' : 'bg-red-500'}`}></div>
                           <span className="text-sm">
-                            <span className={`font-bold ${spotsLeft > 5 ? 'text-[#18E0FF]' : spotsLeft > 0 ? 'text-[#FFD43B]' : 'text-red-500'}`}>
+                            <span className={`font-bold ${spotsLeft > 5 ? 'text-[#18E0FF]' : spotsLeft > 0 ? 'text-[#F4C430]' : 'text-red-500'}`}>
                               {spotsLeft}
                             </span>
                             <span className="text-[#AEB4BB]"> spots left</span>
                           </span>
                         </div>
                         <Button
-                          className={`bg-gradient-to-r from-[#FFD43B] to-[#FFC300] text-[#0B0E11] font-bold hover:from-[#FFC300] hover:to-[#FFD43B] transition-all duration-300 transform hover:scale-110 shadow-lg hover:shadow-[#FFD43B]/30 px-6 ${hoveredEvent === event.id ? 'animate-pulse' : ''
+                          className={`bg-gradient-to-r from-[#F4C430] to-[#FFC300] text-[#0c1838] font-bold hover:from-[#FFC300] hover:to-[#F4C430] transition-all duration-300 transform hover:scale-110 shadow-lg hover:shadow-[#F4C430]/30 px-6 ${hoveredEvent === event.id ? 'animate-pulse' : ''
                             }`}
                         >
                           Register Now
