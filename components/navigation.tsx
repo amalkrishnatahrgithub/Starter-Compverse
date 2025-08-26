@@ -63,16 +63,6 @@ export default function EnhancedNavigation() {
         { name: "Virtual Events", href: "/events/virtual", icon: Globe, description: "Join from anywhere" }
       ]
     },
-    {
-      name: "Solutions",
-      href: "/solutions",
-      hasDropdown: true,
-      dropdownItems: [
-        { name: "Enterprise", href: "/solutions/enterprise", icon: Target, description: "Scale your business" },
-        { name: "Education", href: "/solutions/education", icon: User, description: "Learn and grow" },
-        { name: "Healthcare", href: "/solutions/healthcare", icon: Bell, description: "Health-focused solutions" }
-      ]
-    },
     { name: "Gallery", href: "/gallery" },
     { name: "About", href: "/about" }
   ]
